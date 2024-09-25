@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Thông tin tài khoản')"></head>
+</head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="account-information">
+        <div class="side-block">
+            <a th:href="@{/account}">Thông tin chung</a>
+            <a th:href="@{/account/address}">Địa chỉ</a>
+        </div>
+        <div class="information-block">
+            <form th:action="@{/account/address/save}" method="POST" th:object="${address}">
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{addressDefault}">
+                <div class="form-row">
+                    <div class="group-input-text">
+                        <input type="text" th:field="*{nameCustomer}" placeholder="Tên khách hàng" required>
+                    </div>
+                    <div class="group-input-text">
+                        <input type="text" th:field="*{phoneCustomer}" placeholder="Số điện thoại" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <select class="select-city" th:field="*{city}" th:required="${address.city == null}">
+                        <option th:value="${address.city == null ? '' : address.city}" th:text="${address.city == null ? 'Chọn tỉnh/thành phố' : address.city}" ></option>
+                    </select>
+
+                    <select class="select-district" th:field="*{district}" th:required="${address.district == null}">
+                        <option th:value="${address.district == null ? '' : address.district}" th:text="${address.district == null ? 'Chọn quận/huyện' : address.district}"></option>
+                    </select>
+
+                    <select class="select-ward" th:field="*{ward}" th:required="${address.ward == null}">
+                        <option th:value="${address.ward == null ? '' : address.ward}" th:text="${address.ward == null ? 'Chọn phường/xã' : address.ward}"></option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <textarea th:field="*{detailAddress}" class="detail-address" rows="5" placeholder="Địa chỉ cụ thể" required></textarea>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save-address">Lưu thông tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/js/filterAddress.js}"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="sidebar" class="sidebar">
+    <div class="info-user-block">
+        <div class="user-thumb"><img th:src="@{${#authentication.principal.userPhoto}}" alt=""></div>
+        <div class="user-info">
+            <span>Welcome!</span>
+            <span sec:authentication="principal.fullname"></span>
+        </div>
+    </div>
+
+    <div class="show-info-user">
+        <a th:href="@{/users/account}">Thông tin tài khoản</a>
+    </div>
+
+    <div class="navigation">
+        <ul class="nav-menu">
+            <li class="menu-item">
+                <div class="menu-item-block active">
+                    <a href="#" class="item-link active">
+                        <span class="link-icon"><i class="fa-solid fa-house-user"></i></span>
+                        <span class="link-name">Trang Chủ</span>
+                    </a>
+                </div>
+            </li>
+
+<!--            <li class="menu-item">-->
+<!--                <div class="menu-item-block">-->
+<!--                    <a href="#" class="item-link">-->
+<!--                        <span class="link-icon"><i class="fa-brands fa-elementor"></i></span>-->
+<!--                        <span class="link-name">Menu</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+            <li class="menu-item">
+                <div class="menu-item-block">
+                    <a th:href="@{/users}" href="#" class="item-link">
+                        <span class="link-icon"><i class="fa-solid fa-user"></i></span>
+                        <span class="link-name">Users</span>
+                    </a>
+                </div>
+            </li>
+
+            <li class="menu-item">
+                <div class="menu-item-block">
+                    <a href="#" class="item-link">
+                        <span class="link-icon"><i class="fa-solid fa-box"></i></span>
+                        <span class="link-name">Sản phẩm</span>
+                    </a>
+                </div>
+
+                <span class="drop-down-icon"><i class="fa-solid fa-angle-down"></i></span>
+
+                <ul class="sub-menu">
+                    <li class="sub-menu-item">
+                        <a th:href="@{/brands}" class="item-link">
+                            <span class="link-icon"><i class="fa-solid fa-copyright"></i></span>
+                            <span class="link-name">Brands</span>
+                        </a>
+                    </li>
+
+                    <li class="sub-menu-item">
+                        <a th:href="@{/products}" class="item-link">
+                            <span class="link-icon"><i class="fa-solid fa-rectangle-list"></i></span>
+                            <span class="link-name">Danh sách sản phẩm</span>
+                        </a>
+                    </li>
+
+                    <li class="sub-menu-item">
+                        <a th:href="@{/categories}" class="item-link">
+                            <span class="link-icon"><i class="fa-solid fa-layer-group"></i></span>
+                            <span class="link-name">Danh mục sản phẩm</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+<!--            <li class="menu-item">-->
+<!--                <div class="menu-item-block">-->
+<!--                    <a href="#" class="item-link">-->
+<!--                        <span class="link-icon"><i class="fa-solid fa-newspaper"></i></span>-->
+<!--                        <span class="link-name">Bài viết</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+            <li class="menu-item">
+                <div class="menu-item-block">
+                    <a th:href="@{/orders}" class="item-link">
+                        <span class="link-icon"><i class="fa-solid fa-cart-flatbed"></i></span>
+                        <span class="link-name">Đơn hàng</span>
+                    </a>
+                </div>
+            </li>
+
+<!--            <li class="menu-item">-->
+<!--                <div class="menu-item-block">-->
+<!--                    <a href="#" class="item-link">-->
+<!--                        <span class="link-icon"><i class="fa-solid fa-truck-fast"></i></span>-->
+<!--                        <span class="link-name">Vận chuyển</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="menu-item">-->
+<!--                <div class="menu-item-block">-->
+<!--                    <a href="#" class="item-link">-->
+<!--                        <span class="link-icon"><i class="fa-solid fa-file-signature"></i></span>-->
+<!--                        <span class="link-name">Báo cáo</span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+            <li class="menu-item">
+                <div class="menu-item-block">
+                    <a th:href="@{/setting}" class="item-link">
+                        <span class="link-icon"><i class="fa-solid fa-gear"></i></span>
+                        <span class="link-name">Cài đặt</span>
+                    </a>
+                </div>
+            </li>
+
+            <li class="menu-item">
+                <div class="menu-item-block">
+                    <a href="#" class="item-link logout-link">
+                        <span class="link-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        <span class="link-name">Đăng xuất</span>
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="frangment::page_head('Admin - Trang chủ')"></head>
+<body>
+    <div class="container-fluid">
+        <form th:action="@{/logout}" method="POST" th:hidden="true" name="formLogout">
+            <input type="submit">
+        </form>
+        <div class="wrapper">
+            <div th:replace="navigation::sidebar"></div>
+            <div class="content">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

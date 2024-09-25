@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Chi tiết đơn')">
+</head>
+<body>
+    <main class="main">
+        <header th:replace="header::header(${rootCategory})"></header>
+        <div class="back-page-block" style="width: 10%; background-color: #fff !important; position: absolute; left: 0; top: 15%;">
+            <span class="icon-back" style="background-color: #efefec"><i class="fa-solid fa-arrow-left"></i></span>
+            <span class="text-back">Quay lại</span>
+        </div>
+        <div class="order-detail-content">
+            <div class="ordered-products" th:if="${order != null}">
+                <div class="status-order-info">
+                    <h5>Trạng thái giao hàng</h5>
+                    <div>
+                        <img src="https://img.freepik.com/free-photo/red-delivery-car-deliver-express-shipping-fast-delivery-background-3d-rendering-illustration_56104-1910.jpg" class="icon-delivery">
+                        <span th:id="${order.status == orderSuccess ? 'success-order' : 'delivery-order'}" class="status-order" th:text="${statusOrder.get(order.status)}"></span>
+                    </div>
+                </div>
+
+                <div class="product-order-item" th:each="orderDetail : ${order.orderDetails}">
+                    <div class="product-order-image">
+                        <img th:src="@{${orderDetail.product.mainImagePath}}">
+                    </div>
+                    <div class="product-order-detail">
+                        <h5 class="product-name" th:text="${orderDetail.product.name}"></h5>
+                        <span class="quantity-buy" th:text="${'Số lượng: x' + orderDetail.quantity} + ' sản phẩm'"></span>
+                        <p class="price-product">
+                            <span class="value-price" th:text="${'Giá mua: ' + #numbers.formatInteger(orderDetail.unitPrice, 3, 'POINT')}"></span>
+                            <sup>VNĐ</sup>
+                        </p>
+                        <p class="total-price">
+                            <span class="value-price" th:text="${'Thành tiền: ' + #numbers.formatInteger(orderDetail.subtotal, 3, 'POINT')}">10.000.000</span>
+                            <sup>VNĐ</sup>
+                        </p>
+                        <div class="rating-action">
+                            <th:block th:if="${order.status == orderSuccess}">
+                                <a th:if="${orderDetail.product.rated == true}" th:href="@{'/rating/read/' + ${orderDetail.product.alias}}" id="rated">Xem đánh giá</a>
+                                <a th:if="${orderDetail.product.rated == false}" th:href="@{'/rating/write/' + ${orderDetail.product.alias} +'?order=' + ${order.id}}" id="rating" class="type-action-rating">Đánh giá sản phẩm</a>
+                            </th:block>
+
+                            <th:block th:if="${order.status != orderSuccess}">
+                                <span class="status-no-rating">Đơn hàng chưa hoàn thành! Không thể đánh giá sản phẩm.</span>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

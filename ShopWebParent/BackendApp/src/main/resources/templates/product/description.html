@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div class="description-block">
+            <label style="font-weight: bold; margin-bottom: 10px;">Mô tả ngắn:</label>
+            <textarea class="form-control" th:field="*{shortDescription}" rows="5" maxlength="650"></textarea>
+        </div>
+
+        <div class="description-block" style="margin-top: 16px">
+            <label style="font-weight: bold; margin-bottom: 10px;">Nội dung sản phẩm:</label>
+            <textarea class="form-control" th:field="*{fullDescription}" rows="5" maxlength="5000"></textarea>
+        </div>
+    </div>
+</body>
+</html>

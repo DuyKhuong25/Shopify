@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div style="width: 95%; padding: 16px;" th:fragment="content">
+    <form method="POST" th:action="@{/setting/save_mail_verify}">
+        <div class="form-group form-group_setting" style="display: flex; justify-content: space-between; align-items: center">
+            <label>Mail Subject:</label>
+            <input class="form-input" name="CUSTOMER_VERIFY_SUBJECT" style="width: 90%" th:autocomplete="off" th:value="${CUSTOMER_VERIFY_SUBJECT}" type="text">
+        </div>
+
+        <div class="form-group form-group_setting" style="display: flex; justify-content: space-between; align-items: center">
+            <label>Nội dung Mail:</label>
+            <div class="wrapper-rich-text" style="width: 90%">
+                <textarea id="content_mail" rows="5" cols="5" maxlength="5000" name="CUSTOMER_VERIFY_CONTENT" th:text="${CUSTOMER_VERIFY_CONTENT}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group button-group" style="display: flex; justify-content: end; margin-top: 32px">
+            <button style="width: 200px" type="submit">Lưu cài đặt</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Đăng nhập tài khoản')"></head>
+<body>
+<main>
+    <div class="back-page-block">
+        <span class="icon-back"><i class="fa-solid fa-arrow-left"></i></span>
+        <span class="text-back">Quay lại</span>
+    </div>
+    <div class="from-register from-register_wrapper">
+        <div class="logo">
+            <img th:src="@{${S3_URI + WEB_LOGO}}" alt="">
+        </div>
+        <h5 class="form-name">Đăng nhập</h5>
+
+        <th:block>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger col-xs-offset-1 col-xs-10">
+                    [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+                </div>
+            </div>
+
+            <div th:if="${param.logout}">
+                <div class="alert alert-success col-xs-offset-1 col-xs-10">
+                    Bạn đã đăng xuất tài khoản.
+                </div>
+            </div>
+        </th:block>
+
+        <form th:action="@{/process_login}" method="POST">
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" name="email" class="input input-username" th:autocomplete="off" required>
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu:</label>
+                <input type="password" name="password" class="input input-password" required>
+            </div>
+
+            <div style="margin-bottom: 25px; width: 90%; transform: translateX(23%);" class="input-group">
+                <input type="checkbox" name="remember-me"><span style="display: inline-block; margin-left: 5px; font-size: 13px">Lưu thông tin</span>
+            </div>
+
+            <div class="action-form">
+                <button class="btn-submit" type="submit">Đăng nhập</button>
+                <div class="social-login-block">
+                    <a th:href="@{/oauth2/authorization/google}" type="button" class="login-social login-google">
+                        <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png" alt="">
+                        <span>Đăng nhập với Google</span>
+                    </a>
+
+                    <a th:href="@{/oauth2/authorization/facebook}" type="button" class="login-social login-google">
+                        <img src="https://cdn.pixabay.com/photo/2021/06/15/12/51/facebook-6338507_1280.png" alt="">
+                        <span>Đăng nhập với Facebook</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="redirect-form">
+                <p>Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký</a></p>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

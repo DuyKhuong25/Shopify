@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="frangment::page_head('Admin - Thêm người dùng')"></head>
+<body>
+<div class="container-fluid">
+    <form th:action="@{/logout}" method="POST" th:hidden="true" name="formLogout">
+        <input type="submit">
+    </form>
+    <div class="wrapper">
+        <div th:replace="navigation::sidebar"></div>
+        <div class="content">
+            <h3 class="title">[[${title}]]</h3>
+
+            <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+            <div class="container-form">
+                <form th:action="@{/users/update}" th:object="${user}" method="POST" id="form-submit" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <div class="form-group row">
+                        <div class="column">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
+                        </div>
+                        <div class="column">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" th:field="*{email}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label >Change password</label>
+                        <input th:if="${user.id != null}" type="password" class="form-control input-password"
+                               th:field="*{password}" minlength="8" maxlength="20" placeholder="Current password auto fill"
+                                oninput="checkPasswordMatch(document.querySelector('.input-confirm-password'))"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label >Confirm password</label>
+                        <input type="password" class="form-control input-confirm-password" minlength="8" maxlength="20" placeholder="Confirm new password"
+                               oninput="checkPasswordMatch(this)"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hình ảnh:</label>
+                        <div class="upload-container">
+                            <input type="hidden" name="photo" th:field="*{photos}">
+                            <input type="file" name="image" id="imageUpload" class="input-upload" accept="image/png, image/jpg, image/jpeg">
+                            <label for="imageUpload" class="upload-label">
+                                <span class="plus-icon">+</span>
+                            </label>
+
+                            <div class="error-file"></div>
+
+                            <div class="image-preview" id="imagePreview">
+                                <img id="thumbnail" th:src="@{${user.photos == null ? '/images/user-default-thumb.png' : user.photoPath}}" class="image-preview__image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group button-group">
+                        <button type="submit">Cập nhật</button>
+                        <button type="button" class="btn-cancel">Quay lại</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function checkPasswordMatch(passConfirm){
+        if(passConfirm.value != $(".input-password").val()){
+            passConfirm.setCustomValidity("Password not matches!");
+        }else{
+            passConfirm.setCustomValidity("");
+        }
+    }
+</script>
+
+</body>
+</html>

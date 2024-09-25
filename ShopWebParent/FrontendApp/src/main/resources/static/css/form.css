@@ -1,0 +1,115 @@
+.from-register{
+    width: 35%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 22px;
+    margin: auto;
+    transform: translateY(30%);
+    border-radius: 15px;
+}
+
+.from-register .logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.from-register .logo img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.from-register .form-name{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+.from-register form .form-group{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+
+.from-register form .form-group label{
+    flex-basis: 20%;
+    font-weight: 500;
+}
+
+.from-register form .form-group input{
+    flex-basis: 80%;
+    outline: none;
+    border: 1px solid #cccccc;
+    padding: 8px 16px;
+    border-radius: 25px;
+}
+
+.from-register form .form-group p.error{
+    flex-basis: 100%;
+    margin-bottom: 0;
+    margin-top: 16px;
+    font-size: 12px;
+    color: orangered;
+    transform: translateX(21%);
+    /*display: none;*/
+}
+
+.from-register form .action-form button{
+    display: block;
+    width: 100%;
+    outline: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    border: none;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.from-register form .action-form button.btn-submit{
+    background: #0EB07D;
+}
+
+.from-register form .action-form button.btn-cancel{
+    background: #08527A;
+}
+
+.from-register form .redirect-form p{
+    text-align: center;
+}
+
+.from-register form .action-form .social-login-block{
+    display: flex;
+    gap: 16px;
+}
+
+.from-register form .action-form .social-login-block .login-social{
+    flex-basis: 50%;
+    font-size: 13px;
+}
+
+.from-register form .action-form .social-login-block .login-social{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    color: #171717;
+    border-radius: 25px;
+    border: none;
+    margin-bottom: 16px;
+    text-decoration: none;
+    padding: 8px 16px;
+}
+
+.from-register form .action-form .social-login-block .login-social img{
+    width: 25px;
+    height: 25px;
+    margin-right: 16px;
+}
+
+

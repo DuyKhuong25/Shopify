@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Danh mục sản phẩm')">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div th:replace="navigation::sidebar"></div>
+            <div class="content">
+                <h3 class="title">Danh sách danh mục</h3>
+
+                <div class="list-action">
+                    <a th:href="@{/categories/add}" class="action-link"><span class="icon"><i class="fa-solid fa-user-plus"></i></span>Thêm danh mục</a>
+
+                    <div class="search-container">
+                        <form th:action="@{/categories/page/1}" class="search-form">
+                            <input type="search" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm..." th:autocomplete="off" class="search-input">
+                            <button type="submit" class="search-button">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            </button>
+                        </form>
+
+                        <button data-url="/categories" class="clear-search-input">Xóa</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+                <div class="table_component" tabindex="0">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hình ảnh</th>
+                            <th>Tên danh mục</th>
+                            <th>Alias</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${!categories.isEmpty()}" th:each="category : ${categories}">
+                            <td>[[${category.id}]]</td>
+                            <td>
+                                <img th:if="${category.image == null}" th:src="@{/images/empty-thumb.png}" alt="">
+                                <img th:if="${category.image != null}" th:src="@{${category.categoryImage}}" alt="">
+                            </td>
+                            <td style="text-align: left;">[[${category.name}]]</td>
+                            <td>[[${category.alias}]]</td>
+                            <td>
+                                <a th:if="${category.enabled == true}" th:href="@{'/categories/' + ${category.id} + '/enable/false'}" title="Disable category">
+                                    <i class="icon-status-enabled fa-solid fa-circle-check"></i>
+                                </a>
+
+                                <a th:if="${category.enabled == false}" th:href="@{'/categories/' + ${category.id} + '/enable/true'}" title="Enable category">
+                                    <i class="icon-status-disabled fa-solid fa-circle-xmark"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/categories/edit/' + ${category.id}}" title="Edit">
+                                    <i class="action action-edit fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a th:if="${category.hasChild == false}" th:href="@{'/categories/delete/' + ${category.id}}" title="Delete" onclick="return confirm('Bạn chắc cắn muốn xóa danh mục!')">
+                                    <i class="action action-delete fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:if="${!categories.isEmpty()}" class="pagination-block">
+                    <div class="pagination-info">
+                        <p>Result: [[${startItem}]] -> [[${endItem}]] of total [[${totalItem}]] result</p>
+                    </div>
+                    <div class="pagination">
+                        <a th:href="@{'/categories/page/' + ${currentPage - 1}}" th:class="${currentPage == 1 ? 'pagination-item-disable' : ''}">&laquo;</a>
+                        <a th:each="item : ${#numbers.sequence(1, totalPage)}"  th:href="@{'/categories/page/' + ${item} + ${keyword != null ? '?keyword=' + keyword : ''}}" th:class="${currentPage == item ? 'active' : ''}">[[${item}]]</a>
+                        <a th:href="@{'/categories/page/' + ${currentPage + 1}}" th:class="${currentPage >= totalPage ? 'pagination-item-disable' : ''}">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

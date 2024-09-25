@@ -1,0 +1,175 @@
+#content-product-block{
+    display: flex;
+    width: 65%;
+    margin: 0 auto;
+    padding: 16px 0;
+}
+
+/*Product list*/
+#content-product-block .product-list-block{
+    flex-basis: 85%;
+    flex-wrap: wrap;
+    margin-right: 16px;
+}
+
+.product-list-block ul.list-product{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-list-block ul.list-product li.product-item{
+    flex-basis: 19%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 16px;
+    position: relative;
+}
+
+.product-list-block ul.list-product li.product-item .sale-percent-block{
+    position: absolute;
+    width: 60px;
+    height: 35px;
+    background-size: contain;
+    color: white;
+    top: 2%;
+    left: -2%;
+}
+
+.sale-percent-block{
+    position: absolute;
+    right: 25px;
+    bottom: 50px;
+    background-image: url("https://www.anphatpc.com.vn/template/2024/images/bg-discount.png");
+    background-repeat: no-repeat;
+
+}
+
+.sale-percent-block span{
+    display: block;
+    text-align: center;
+    width: 100%;
+    transform: translateY(2px);
+}
+
+ul.list-product li.product-item .thumb-product{
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 18px;
+}
+
+ul.list-product li.product-item .thumb-product img{
+    width: 100%;
+    min-height: 155px;
+    object-fit: contain
+}
+
+ul.list-product li.product-item .info-product{
+    padding: 0 9px;
+}
+
+ul.list-product li.product-item .info-product .name-product{
+    min-height: 60px;
+}
+
+ul.list-product li.product-item .info-product .name-product a{
+    display: block;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #363636;
+}
+
+ul.list-product li.product-item .info-product .name-product a:hover{
+    color: #171717;
+}
+
+ul.list-product li.product-item .info-product .price-product .main-price,
+ul.list-product li.product-item .info-product .price-product .price-discount{
+    font-size: 18px;
+    font-weight: 600;
+    color: orangered;
+}
+
+ul.list-product li.product-item .info-product .price-product .main-price-discount{
+    text-decoration: line-through;
+}
+
+ul.list-product li.product-item .info-product .price-product{
+    height: 50px;
+}
+
+ul.list-product li.product-item .info-product .price-product span.price{
+    display: block;
+}
+
+ul.list-product li.product-item .info-product .review .star-block i{
+    font-size: 12px;
+    color: #efc529;
+}
+
+ul.list-product li.product-item .info-product .review .quantity-vote .num-review,
+ul.list-product li.product-item .info-product .review .quantity-vote{
+    font-size: 12px;
+    font-style: italic;
+}
+
+ul.list-product li.product-item .info-product .review .star-block{
+    height: 30px;
+}
+
+
+/*Filter product*/
+#content-product-block .filter-product-block{
+    flex-basis: 15%;
+}
+
+#content-product-block .block-filter{
+    /*margin-bottom: 16px;*/
+    padding: 16px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#content-product-block .block-filter p{
+    font-weight: 500;
+    margin-bottom: 12px !important;
+}
+
+#content-product-block .field-group{
+    margin-bottom: 10px;
+}
+
+#content-product-block .field-group span{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#content-product-block .field-group input{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#content-product-block .filter-key-block input{
+    width: 100%;
+    outline: none;
+    border: 1px solid #efc529;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#resetFilters{
+    width: 100%;
+    margin-top: 16px;
+    padding: 5px 16px;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    background-color: tomato;
+    color: white;
+}
+
+
+

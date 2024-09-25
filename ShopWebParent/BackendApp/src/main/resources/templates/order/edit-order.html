@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Chỉnh sửa đơn hàng')">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="wrapper">
+        <div th:replace="navigation::sidebar"></div>
+        <div class="content">
+            <h3 class="title">[[${title}]]</h3>
+            <div class="action-block_order-detail">
+                <a th:href="@{'/orders/detail/' + ${order.id}}" class="cancel-action">Quay lại</a>
+                <div class="add-more-product">
+                    <input type="hidden" class="data-order" th:data-order="${order.id}">
+                    <input class="input-search_add-product" type="text" placeholder="Tìm kiếm sản phẩm...">
+                    <div class="inner-search-result"></div>
+                </div>
+            </div>
+
+            <div class="information-order-detail">
+                <div class="list-product-order" style="flex-basis: 70%;">
+                    <h5 class="title-name">Danh sách sản phẩm</h5>
+                    <div class="wrapper-list">
+                        <th:block th:replace="order/list-product::productList(${order.orderDetails})"></th:block>
+                    </div>
+                </div>
+
+                <div class="order-info-block" style="flex-basis: 30%;">
+                    <div class="top-block">
+                        <h5 class="title-name">Thông tin thanh toán</h5>
+                        <div class="info-checkout">
+                            <div class="row">
+                                <span class="text">Tạm tính:</span>
+                                <p class="value">
+                                    <span class="temp-total" th:text="${#numbers.formatInteger(order.total, 3, 'POINT')}"></span>
+                                    <sup> VNĐ</sup>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <span class="text">Phí vận chuyển:</span>
+                                <p class="value">
+                                    <span>0</span>
+                                    <sup> VNĐ</sup>
+                                </p>
+                            </div>
+                            <div class="row">
+                                <span class="text">Thành tiền:</span>
+                                <p class="value">
+                                    <span class="total-checkout" style="color: #e54e4e;" th:text="${#numbers.formatInteger(order.total, 3, 'POINT')}"></span>
+                                    <sup> VNĐ</sup>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-block">
+                        <h5 class="title-name">Thông tin khác</h5>
+                        <div class="component-tab-content">
+                            <div class="tabs">
+                                <div class="tab" style="flex-basis: 100%;">
+                                    <button type="button" class="tabLink" onclick="openTab(event, 'tab1')" id="defaultOpen">Thông tin khách hàng</button>
+                                </div>
+                            </div>
+
+                            <div id="tab1" class="tabContent">
+                                <p>Email: <span th:text="${order.customer.email}"></span></p>
+                                <p>Tên khách hàng: <span th:text="${order.fullName}"></span></p>
+                                <p>Số điện thoại: <span th:text="${order.phoneNumber}"></span></p>
+                                <p>Địa chỉ nhận hàng: <span th:text="${order.address}"></span></p>
+                                <p>Thời gian đặt hàng: <span th:text="${#dates.format(order.orderTime, 'dd-MM-yyyy HH:mm')}"></span></p>
+                                <p>Phương thức thanh toán: <span th:text="${typeCheckout.get(order.paymentMethod)}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/update-order.js}"></script>
+
+<script type="text/javascript">
+    function openTab(evt, tabName) {
+        // Hide all tab content by default
+        var tabContent = document.querySelectorAll(".tabContent");
+        tabContent.forEach(function(content) {
+            content.style.display = "none";
+        });
+
+        // Remove the "active" class from all tab buttons
+        var tabLink = document.querySelectorAll(".tabLink");
+        tabLink.forEach(function(link) {
+            link.classList.remove("active");
+        });
+
+        // Show the specific tab content and add "active" class to the clicked tab button
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Open the default tab when the page loads
+    document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>

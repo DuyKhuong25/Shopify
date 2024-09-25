@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Giỏ hàng')"></head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="wrapper-cart">
+        <div class="list-cart-item" th:if="${!listCart.isEmpty()}">
+            <h5 class="title">Thông tin giỏ hàng</h5>
+            <div class="cart-item" th:each="cartItem : ${listCart}" th:id="'item-cart-' + ${cartItem.id}">
+                <div class="thumb">
+                    <img th:src="@{${cartItem.product.mainImagePath}}" alt="">
+                </div>
+
+                <div class="name-product">
+                    <a th:href="@{'/chi-tiet-san-pham/' + ${cartItem.product.alias}}"
+                       th:text="${cartItem.product.name}"></a>
+                </div>
+
+                <div class="change-quantity">
+                    <button type="button" class="minus minus-change-cart-item" th:data-product="${cartItem.product.id}">
+                        -
+                    </button>
+                    <input class="input-quantity quantity-cart-item"
+                           th:id="'quantity-product-' + ${cartItem.product.id}" type="text"
+                           th:value="${cartItem.quantity}">
+                    <button type="button" class="plus plus-change-cart-item" th:data-product="${cartItem.product.id}">
+                        +
+                    </button>
+                </div>
+
+                <div class="sub-total">
+                    <p class="sub-total-price" th:id="'subtotal-product-' + ${cartItem.product.id}"
+                       th:text="${#numbers.formatInteger((cartItem.product.discountPrice * cartItem.quantity), 3, 'POINT')}"></p>
+                </div>
+
+                <button class="remove-cart-item" th:data-item="${cartItem.id}" th:data-product="${cartItem.product.id}">
+                    <i class="fa-solid fa-trash-can icon"></i>
+                </button>
+            </div>
+
+            <div class="cart-item cart-checkout">
+                <span class="text-total">Tổng thanh toán:</span>
+                <span class="total-price" th:text="${#numbers.formatInteger(totalCartPrice, 3, 'POINT')}"></span>
+                <div class="cart-checkout">
+                    <a th:href="@{/checkout}" class="checkout-action">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+        <div th:if="${listCart.isEmpty()}" class="empty-cart-block">
+            <div class="image-block">
+                <img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png" alt="">
+            </div>
+            <div class="redirect-action">
+                <a class="redirect-link" th:href="@{/}">Về trang chủ</a>
+            </div>
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/cart.js}"></script>
+</body>
+</html>

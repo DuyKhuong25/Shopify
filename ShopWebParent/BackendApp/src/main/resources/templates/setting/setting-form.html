@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Cấu hình cài đặt')">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="wrapper">
+        <div th:replace="navigation::sidebar"></div>
+        <div class="content">
+            <h3 class="title">Cấu hình cài đặt</h3>
+
+            <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+            <div class="container-form__product">
+                <div class="component-tab-content">
+                    <div class="tabs">
+                        <div class="tab">
+                            <button type="button" class="tablinks" onclick="openTab(event, 'tab1')" id="defaultOpen">Cài đặt chung</button>
+                        </div>
+                        <div class="tab">
+                            <button type="button" class="tablinks" onclick="openTab(event, 'tab2')">Cài đặt Mail</button>
+                        </div>
+                        <div class="tab">
+                            <button type="button" class="tablinks" onclick="openTab(event, 'tab3')">Mẫu Mail xác thực</button>
+                        </div>
+                        <div class="tab">
+                            <button type="button" class="tablinks" onclick="openTab(event, 'tab4')">Mẫu Mail đặt hàng</button>
+                        </div>
+<!--                        <div class="tab">-->
+<!--                            <button type="button" class="tablinks" onclick="openTab(event, 'tab5')">Cấu hình thanh toán</button>-->
+<!--                        </div>-->
+                    </div>
+
+                    <div id="tab1" class="tabcontent">
+                        <div th:replace="setting/general::content"></div>
+                    </div>
+
+                    <div id="tab2" class="tabcontent">
+                        <div th:replace="setting/mail-template/mail-server::content"></div>
+                    </div>
+
+                    <div id="tab3" class="tabcontent">
+                        <div th:replace="setting/mail-template/mail-verify-template::content"></div>
+                    </div>
+
+                    <div id="tab4" class="tabcontent">
+                        <div th:replace="setting/mail-template/mail-order-template::content"></div>
+                    </div>
+
+<!--                    <div id="tab5" class="tabcontent">-->
+<!--                        <div th:replace="setting/payment::content"></div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function openTab(evt, tabName) {
+        // Hide all tab content by default
+        var tabcontent = document.querySelectorAll(".tabcontent");
+        tabcontent.forEach(function(content) {
+            content.style.display = "none";
+        });
+
+        // Remove the "active" class from all tab buttons
+        var tablinks = document.querySelectorAll(".tablinks");
+        tablinks.forEach(function(link) {
+            link.classList.remove("active");
+        });
+
+        // Show the specific tab content and add "active" class to the clicked tab button
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Open the default tab when the page loads
+    document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>

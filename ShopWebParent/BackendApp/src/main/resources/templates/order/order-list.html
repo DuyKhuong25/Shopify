@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Danh sách đơn hàng')">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="wrapper">
+        <div th:replace="navigation::sidebar"></div>
+        <div class="content">
+            <h3 class="title">[[${title}]]</h3>
+
+            <div class="list-action_order">
+                <div class="search-container">
+                    <form class="search-form_order">
+                        <div class="category-filter-order">
+                            <select class="filter_order_status" name="filter_order_status">
+                                <option value="">Trạng thái đơn hàng</option>
+                            </select>
+                        </div>
+                        <div class="wrapper-search">
+                            <input type="search" name="keyword" placeholder="Tìm kiếm..." th:autocomplete="off" class="search-input">
+                            <button type="submit" class="search-button">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <button data-url="/orders" class="clear-search-input">Xóa</button>
+                </div>
+            </div>
+
+            <div class="table_component" tabindex="0">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Tổng thanh toán</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Trạng thái đơn hàng</th>
+                        <th>Tùy chỉnh</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${!orders.isEmpty()}" th:each="order, status : ${orders}">
+                        <td>[[${status.index + 1}]]</td>
+                        <td th:text="${order.customer.fullName}"></td>
+                        <td th:text="${order.phoneNumber}"></td>
+                        <td th:text="${#dates.format(order.orderTime, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${#numbers.formatInteger(order.total, 3, 'POINT')} + ' VNĐ'" style="text-align: end; color: #317acf; font-weight: 500"></td>
+                        <td th:text="${typeCheckout.get(order.paymentMethod)}"></td>
+                        <td th:text="${orderStatus.get(order.status)}"></td>
+                        <td>
+                            <a th:href="@{'/orders/detail/' + ${order.id}}" title="Chi tiết" class="btn btn-sm btn-warning text-dark">Chi tiết</a>
+
+                            <a th:href="@{'/orders/delete/' + ${order.id}}" title="Delete" onclick="return confirm('Bạn chắc cắn muốn xóa đơn hàng!')">
+                                <i class="action action-delete fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

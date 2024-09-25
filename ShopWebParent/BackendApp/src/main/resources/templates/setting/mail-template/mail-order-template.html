@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div style="width: 95%; padding: 16px;" th:fragment="content">
+    <form method="POST" th:action="@{/setting/save_mail_order}">
+        <div class="form-group form-group_setting" style="display: flex; justify-content: space-between; align-items: center">
+            <label>Mail Subject:</label>
+            <input class="form-input" name="ORDER_CONFIRM_SUBJECT" style="width: 90%" th:autocomplete="off" th:value="${ORDER_CONFIRM_SUBJECT}" type="text">
+        </div>
+
+        <div class="form-group form-group_setting" style="display: flex; justify-content: space-between; align-items: center">
+            <label>Nội dung Mail:</label>
+            <div class="wrapper-rich-text" style="width: 90%">
+                <textarea id="content_mail_order" rows="5" cols="5" maxlength="5000" name="ORDER_CONFIRM_CONTENT" th:text="${ORDER_CONFIRM_CONTENT}"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group button-group" style="display: flex; justify-content: end; margin-top: 32px">
+            <button style="width: 200px" type="submit">Lưu cài đặt</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

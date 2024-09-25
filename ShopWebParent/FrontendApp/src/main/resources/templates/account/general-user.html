@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Thông tin tài khoản')"></head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="account-information">
+        <div class="side-block">
+            <a th:href="@{/account}">Thông tin chung</a>
+            <a th:href="@{/account/address}">Địa chỉ</a>
+        </div>
+        <div class="information-block">
+            <form id="user-profile-form" th:action="@{/account/update}" th:object="${customer}" method="POST">
+                <input type="hidden" name="id" th:field="*{id}">
+                <div class="user-form-field">
+                    <label>Địa chỉ Email:</label>
+                    <input type="email" name="email" th:field="*{email}" readonly>
+                </div>
+
+                <div class="user-form-field">
+                    <label>Tên người dùng:</label>
+                    <input type="text" name="username" th:field="*{fullName}" autocomplete="off">
+                </div>
+
+                <div class="user-form-field" th:if="${addressChoose != null}">
+                    <label>Địa chỉ đang chọn:</label>
+                    <input type="text" th:value="${addressChoose.stringAddress}" readonly>
+                </div>
+
+                <div class="user-form-field" th:unless="${addressChoose != null}">
+                    <label>Chưa có địa chỉ:</label>
+                    <a class="general-add-address" th:href="@{/account/address}">Thêm địa chỉ</a>
+                </div>
+
+                <div class="user-form-field">
+                    <button type="button" class="btn-change-password">Thay đổi mật khẩu</button>
+                </div>
+
+                <div class="user-form-field user-password-field">
+                    <label>Mật khẩu mới</label>
+                    <input type="password" th:field="*{password}" name="newPassword" min="8">
+                    <button type="button" class="btn-cancel">Hủy</button>
+                </div>
+
+                <div class="user-submit-field">
+                    <button type="submit" class="btn-submit">Lưu thông tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    const passwordField = document.querySelector('.user-password-field');
+    const changePasswordBtn = document.querySelector('.btn-change-password');
+    const cancelBtn = document.querySelector('.btn-cancel');
+
+    // Hàm để hiển thị khối password-field với hiệu ứng mượt mà
+    function slideDown(element, duration = 300) {
+        element.style.display = 'block';
+        element.style.height = '0';
+        element.style.overflow = 'hidden';
+        let height = element.scrollHeight;
+        element.style.transition = `height ${duration}ms ease`;
+        setTimeout(() => {
+            element.style.height = `${height}px`;
+        }, 10);
+        setTimeout(() => {
+            element.style.height = '';
+            element.style.overflow = '';
+        }, duration);
+    }
+
+    // Hàm để ẩn khối password-field với hiệu ứng mượt mà
+    function slideUp(element, duration = 300) {
+        let height = element.scrollHeight;
+        element.style.height = `${height}px`;
+        element.style.overflow = 'hidden';
+        element.style.transition = `height ${duration}ms ease`;
+        setTimeout(() => {
+            element.style.height = '0';
+        }, 10);
+        setTimeout(() => {
+            element.style.display = 'none';
+            element.style.height = '';
+            element.style.overflow = '';
+        }, duration);
+    }
+
+    // Sự kiện hiển thị khối password-field khi nhấn Change Password
+    changePasswordBtn.addEventListener('click', function () {
+        slideDown(passwordField, 300);
+    });
+
+    // Sự kiện ẩn khối password-field khi nhấn Cancel
+    cancelBtn.addEventListener('click', function () {
+        slideUp(passwordField, 300);
+    });
+</script>
+</body>
+</html>

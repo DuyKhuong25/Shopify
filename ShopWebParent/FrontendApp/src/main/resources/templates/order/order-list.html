@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Danh sách đơn hàng')">
+</head>
+<body>
+    <div class="main">
+        <header th:replace="header::header(${rootCategory})"></header>
+        <div class="wrapper-order">
+            <div class="order-list">
+                <div class="order-info-item" th:each="order : ${listOrder}">
+                    <div class="main-info">
+                         <div class="left-block">
+                             <p class="info-address">
+                                 <span class="text">Thông tin giao hàng:</span>
+                                 <span class="value" th:text="${order.address}"></span>
+                                 <span class="value" th:text="${#dates.format(order.orderTime, 'dd-MM-yyyy HH:ss')}"></span>
+                             </p>
+                             <ul class="order-product-list">
+                                 <li class="info-product-order" th:each="detail : ${order.orderDetails}">
+                                     <span class="name-product" th:text="${detail.product.name}"></span>
+                                     <span class="quantity-buy" th:text="${'Số lượng: x' + detail.quantity}"></span>
+                                     <p class="price-product">
+                                        <span class="value-price" th:text="${'Thành tiền: ' + #numbers.formatInteger(detail.unitPrice, 3, 'POINT')}"></span>
+                                        <sup>VNĐ</sup>
+                                     </p>
+                                 </li>
+                             </ul>
+                         </div>
+                        <div class="right-block">
+                            <p class="total-price">
+                                <span class="value-price" th:text="${#numbers.formatInteger(order.total, 3, 'POINT')}">10.000.000</span>
+                                <sup>VNĐ</sup>
+                            </p>
+                            <p class="order-status" th:text="${statusOrder.get(order.status)}"></p>
+                        </div>
+                    </div>
+                    <div class="sub-info">
+                        <a th:href="@{'/orders/' + ${order.id}}">Xem thông tin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

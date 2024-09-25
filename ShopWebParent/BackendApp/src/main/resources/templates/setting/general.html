@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div style="width: 95%; padding: 16px;" th:fragment="content">
+    <form enctype="multipart/form-data" id="form-product" method="POST" th:action="@{/setting/save}">
+        <div class="form-group form-group_setting"
+             style="display: flex; justify-content: space-between; align-items: center">
+            <label>Tên website:</label>
+            <input class="form-input" name="WEB_NAME" style="width: 90%" th:autocomplete="off" th:value="${WEB_NAME}"
+                   type="text">
+        </div>
+
+        <div class="form-group form-group_setting"
+             style="display: flex; justify-content: space-between; align-items: center">
+            <label>Logo website:</label>
+            <div class="upload-container">
+                <input accept="image/png, image/jpg, image/jpeg" class="input-upload" id="imageUpload"
+                       name="imageUpload"
+                       type="file">
+                <label class="upload-label" for="imageUpload">
+                    <span class="plus-icon">+</span>
+                </label>
+
+                <div class="error-file"></div>
+
+                <div class="image-preview" id="imagePreview">
+                    <img class="image-preview__image" id="thumbnail" th:src="@{${S3_URI + WEB_LOGO}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-group_setting"
+             style="display: flex; justify-content: space-between; align-items: center">
+            <label>Hotline website:</label>
+            <input class="form-input" name="WEB_HOTLINE" style="width: 90%" th:autocomplete="off"
+                   th:value="${WEB_HOTLINE}"
+                   type="text">
+        </div>
+
+        <div class="form-group form-group_setting"
+             style="display: flex; justify-content: space-between; align-items: center">
+            <label>Email website:</label>
+            <input class="form-input" name="WEB_EMAIL" style="width: 90%" th:autocomplete="off" th:value="${WEB_EMAIL}"
+                   type="text">
+        </div>
+
+        <div class="form-group form-group_setting"
+             style="display: flex; justify-content: space-between; align-items: center">
+            <label>Địa chỉ:</label>
+            <input class="form-input" name="COMPANY_ADDRESS" style="width: 90%" th:autocomplete="off"
+                   th:value="${COMPANY_ADDRESS}" type="text">
+        </div>
+
+        <div class="form-group button-group" style="display: flex; justify-content: end; margin-top: 32px">
+            <button style="width: 200px" type="submit">Lưu cài đặt</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

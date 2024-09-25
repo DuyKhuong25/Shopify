@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Đăng ký tài khoản')"></head>
+<body>
+    <div class="main">
+        <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+        <div style="width: 100%; margin: auto; transform: translateY(50%); text-align: center; padding: 22px">
+            <h5 style="text-transform: uppercase; margin-bottom: 16px; font-size: 22px">Xác thực tài khoản thành công!</h5>
+            <p>Tài khoản của bạn đã được kích hoạt. Hãy <a th:href="@{/login}" style="background-color: #0EB092; text-decoration: none; color: #F9FAF5; font-weight: 500; padding: 5px 12px; border-radius: 25px">Đăng nhập</a> tài khoản để trải nghiệm mua sắm</p>
+        </div>
+    </div>
+</body>
+</html>

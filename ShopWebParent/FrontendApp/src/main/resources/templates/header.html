@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+    <header th:fragment="header(rootCategory)">
+        <form id="form-logout" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST"></form>
+        <div class="wrapper-header">
+            <div class="header-top">
+                <div class="logo-shop">
+                    <a href="/"><img th:src="@{${S3_URI + WEB_LOGO}}" alt=""></a>
+                </div>
+
+                <div class="search-block">
+                    <form th:action="@{/tim-kiem}" class="form-search" method="GET">
+                        <input type="text" class="input-search-product" th:value="${keyword}" name="keyword" th:autocomplete="off" placeholder="Tìm kiếm sản phẩm">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                    <div class="inner-search-result"></div>
+                </div>
+
+                <div class="user-order-check">
+                    <a sec:authorize="isAuthenticated()" th:href="@{/orders}">
+                        <span class="icon"><i class="fa-solid fa-bookmark"></i></span>
+                        <span class="text">Thông tin đơn hàng</span>
+                    </a>
+                </div>
+
+                <div class="shopping-cart">
+                    <a sec:authorize="isAuthenticated()" th:href="@{/cart}">
+                        <span class="text">Giỏ hàng</span>
+                        <span class="quantity-cart" th:text="${quantityCart}"></span>
+                    </a>
+                </div>
+
+                <div sec:authorize="!isAuthenticated()" class="login-account">
+                    <a th:href="@{/login}" class="link-login">Đăng nhập</a>
+                    <a th:href="@{/register}"  class="link-register">Đăng ký</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()" class="info-account">
+                    <div class="username-block">
+                        <a class="account-username" href="#" th:text="${#authentication.principal.fullName}"></a>
+                        <i class="fa-solid fa-sort-down"></i>
+                        <div class="account-action-block">
+                            <ul class="list-action">
+                                <li>
+                                    <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                                    <a class="action-link logout-link" href="">Đăng xuất</a>
+                                </li>
+
+                                <li>
+                                    <span class="icon"><i class="fa-solid fa-user-large"></i></span>
+                                    <a class="action-link" th:href="@{/account}">Thông tin tài khoản</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="thumb-account-block">
+                        <img th:src="@{/images/user-verify-icon.png}" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="header-nav">
+                <ul class="list-category">
+                    <li th:each="category : ${rootCategory}" class="category-item">
+                        <a th:href="@{'/san-pham/' + ${category.alias}}">[[${category.name}]]</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

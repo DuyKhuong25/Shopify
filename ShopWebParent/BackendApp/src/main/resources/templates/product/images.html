@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="form-group">
+        <label>Hình ảnh chính: <span style="font-size: 12px; font-weight: normal; font-style: italic;">(Sản phẩm bắt buộc có một ảnh chính)</span></label>
+        <div class="upload-container" style="width: 20%; margin-top: 16px">
+            <input type="hidden" th:field="*{mainImage}">
+            <input type="file" name="mainImageUpload" id="mainImageUpload" class="input-upload" accept="image/png, image/jpg, image/jpeg" th:required="${product.mainImage == null}">
+            <label for="mainImageUpload" class="upload-label">
+                <span class="plus-icon">+</span>
+            </label>
+
+            <div class="image-preview" id="imagePreview">
+                <img id="thumbnail" th:src="@{${product.mainImagePath}}" class="image-preview__image">
+            </div>
+            <div class="error-file"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Hình ảnh phụ: <span style="font-size: 12px; font-weight: normal; font-style: italic;">(Có thể chọn nhiều ảnh một lần)</span></label>
+        <div class="upload-container" style="width: 100%; margin-top: 16px; justify-content: start">
+            <input type="file" name="subImageUpload" id="subImageUpload" class="input-upload" accept="image/png, image/jpg, image/jpeg" multiple>
+            <label for="subImageUpload" class="upload-label">
+                <span class="plus-icon">+</span>
+            </label>
+
+            <div class="wrapper-list-image">
+                <th:block th:if="${product.images != null}">
+                    <div th:class="list-old-image">
+                        <div class="thumbnail-container" th:each="image : ${product.images}">
+                            <img th:src="@{${image.extraImagePath}}">
+                            <span class="delete-icon delete-image">&times;</span>
+                        </div>
+                    </div>
+                </th:block>
+
+                <div id="additional-thumbnails" class="additional-thumbnails"></div>
+            </div>
+
+            <div class="error-file"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

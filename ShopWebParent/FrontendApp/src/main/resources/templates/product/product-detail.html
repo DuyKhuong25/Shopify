@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Chi tiết sản phẩm')"></head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="back-page-block" style="width: 10%; background-color: #fff !important; position: absolute; left: 0; top: 15%;">
+        <span class="icon-back" style="background-color: #efefec"><i class="fa-solid fa-arrow-left"></i></span>
+        <span class="text-back">Quay lại</span>
+    </div>
+    <div class="detail-product-block">
+        <div class="overview-block">
+            <div class="overview-left">
+                <div class="block-thumb-product">
+                    <div class="main-thumb">
+                        <img th:src="@{${product.mainImagePath}}" alt="">
+                    </div>
+                    <div th:if="${!product.images .isEmpty()}" class="extra-thumb">
+                        <ul class="list-images">
+                            <li th:each="image : ${product.images}" class="image-item">
+                                <img th:src="@{${image.extraImagePath}}" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="overview-right">
+                <h5 class="name-product">[[${product.name}]]</h5>
+                <div class="sale-block">
+                        <span class="votes">
+                            <input style="width: 0" id="input-rating" type="text" th:value="${product.averageRating}" data-size="xs">
+                            <span class="quantity-vote" th:text="${product.countRating} + ' đánh giá'"></span>
+                        </span>
+
+                    <span class="quantity-sale">1.025 lượt bán</span>
+                </div>
+
+                <div th:if="${product.discountPercent != 0}" class="price-block price-block_discount">
+                    <p class="price">
+                        <span class="text">Giá niêm yết:</span>
+                        <span class="main-price-discount"
+                              th:text='${#numbers.formatInteger(product.price, 3, "POINT")}'></span>
+                    </p>
+                    <p class="price">
+                        <span class="text">Giá khuyến mãi:</span>
+                        <span th:text='${#numbers.formatInteger(product.discountPrice, 3, "POINT")}'
+                              class="price-discount"></span>
+                    </p>
+                </div>
+
+                <div th:if="${product.discountPercent == 0}" class="price-block price-block">
+                    <p class="price">
+                        <span class="text">Giá bán:</span>
+                        <span class="main-price" th:text='${#numbers.formatInteger(product.price, 3, "POINT")}'></span>
+                    </p>
+                </div>
+
+                <div class="action-block">
+                    <p class="stock-product">
+                        <span>Tình trạng:</span>
+                        <span th:class="${product.inStock == true ? 'is-stock' : 'stock'}"
+                              th:text="${product.inStock == true ? 'Còn hàng' : 'Hết hàng'}"></span>
+                    </p>
+
+                    <div class="create-quantity">
+                        <span>Số lượng:</span>
+                        <button type="button" class="minus">-</button>
+                        <input class="input-quantity" type="text" value="1">
+                        <button type="button" class="plus">+</button>
+                    </div>
+
+                    <div class="add-cart-block">
+                        <button type="button" th:data-product="${product.id}" class="add-cart-action"
+                                th:disabled="${product.inStock == true ? false : true}">Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-product-detail">
+            <h3>Thông tin sản phẩm</h3>
+            <div class="component-tab-content">
+                <div class="tabs">
+                    <div class="tab">
+                        <button type="button" class="tablinks" onclick="openTab(event, 'tab1')"  id="defaultOpen">Thông số chi tiết</button>
+                    </div>
+                    <div class="tab">
+                        <button type="button" class="tablinks" onclick="openTab(event, 'tab2')">Nội dung sản phẩm</button>
+                    </div>
+                </div>
+
+                <div id="tab1" class="tabcontent">
+                    <div class="table_component" role="region" tabindex="0">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr th:each="deltail : ${product.details}">
+                                <td th:text="${deltail.name}"></td>
+                                <td th:text="${deltail.value}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab2" class="tabcontent" th:utext="${product.fullDescription}"></div>
+
+            </div>
+        </div>
+        <div class="review-product-block">
+            <h3>Đánh giá sản phẩm</h3>
+            <div th:if="${!listRating.isEmpty()}" class="list-review-block">
+                <div class="review-item" th:each="rating : ${listRating}">
+                    <div class="rating-star-block">
+                        <input style="width: 0" class="data-rating-item" type="text" th:value="${rating.rating}" data-size="xs">
+                    </div>
+                    <div class="rating-content-block">
+                        <p><span class="customer-rating" th:text="${rating.customer.fullName}"></span> <span class="date-rating" th:text="${#dates.format(rating.createTime, 'dd-MM-yyyy HH:ss')}"></span></p>
+                        <p class="comment-rating" th:text="${rating.comment}"></p>
+                    </div>
+                </div>
+            </div>
+            <div th:unless="${!listRating.isEmpty()}" class="list-review-block"  style="display: flex; flex-direction: column; align-items: center">
+                <img style="width: 200px" src="https://cdn.iconscout.com/icon/free/png-256/free-no-star-rating-icon-download-in-svg-png-gif-file-formats--feedback-cancle-user-interface-pack-icons-2598152.png" alt="">
+                <h5 style="text-align: center; font-weight: 500; font-size: 16px; font-style: italic">Chưa có đánh giá nào!</h5>
+            </div>
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/productEvent.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/js/star-rating.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/themes/krajee-svg/theme.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.0.7/js/locales/LANG.js"></script>
+
+<script type="text/javascript">
+    $("#input-rating").rating({
+        displayOnly: true,
+        hoverOnClear: false,
+        showCaption: false,
+        theme: 'krajee-svg'
+    })
+
+    $(".data-rating-item").rating({
+        displayOnly: true,
+        hoverOnClear: false,
+        showCaption: false,
+        theme: 'krajee-svg'
+    })
+
+    function openTab(evt, tabName) {
+        // Hide all tab content by default
+        var tabcontent = document.querySelectorAll(".tabcontent");
+        tabcontent.forEach(function(content) {
+            content.style.display = "none";
+        });
+
+        // Remove the "active" class from all tab buttons
+        var tablinks = document.querySelectorAll(".tablinks");
+        tablinks.forEach(function(link) {
+            link.classList.remove("active");
+        });
+
+        // Show the specific tab content and add "active" class to the clicked tab button
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Open the default tab when the page loads
+    document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>

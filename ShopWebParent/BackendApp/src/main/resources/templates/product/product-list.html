@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Danh sách sản phẩm')">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div th:replace="navigation::sidebar"></div>
+            <div class="content">
+                <h3 class="title">[[${title}]]</h3>
+
+                <div class="list-action">
+                    <a th:href="@{/products/add}" class="action-link"><span class="icon"><i class="fa-solid fa-user-plus"></i></span>Thêm sản phẩm</a>
+
+                    <div class="search-container">
+                        <form th:action="@{/products/page/1}" class="search-form search-form_product">
+                            <div class="category-filter-product">
+                                <select name="category" style="outline: none; border: 1px solid #ccc; padding: 8px 12px; border-radius: 10px">
+                                    <option value="0">Danh mục</option>
+                                    <option th:each="category : ${categories}" th:selected="(${categoryID} == ${category.id})" th:value="${category.id}">[[${category.name}]]</option>
+                                </select>
+                            </div>
+                            <input type="search" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm..." th:autocomplete="off" class="search-input">
+                            <button type="submit" class="search-button">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            </button>
+                        </form>
+
+                        <button data-url="/products" class="clear-search-input">Xóa</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+                <div class="table_component" tabindex="0">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Thương hiệu</th>
+                            <th>Danh mục</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${!products.isEmpty()}" th:each="product : ${products}">
+                                <td>[[${product.id}]]</td>
+                                <td>
+                                    <img th:if="${!product.mainImage.isEmpty()}" th:src="@{${product.mainImagePath}}" alt="">
+                                </td>
+                                <td style="text-align: left;">[[${product.name}]]</td>
+                                <td>[[${product.brand.name}]]</td>
+                                <td>[[${product.category.name}]]</td>
+                                <td>
+                                    <a th:if="${product.enabled == true}" th:href="@{'/products/' + ${product.id} + '/enable/false'}" title="Disable category">
+                                        <i class="icon-status-enabled fa-solid fa-circle-check"></i>
+                                    </a>
+
+                                    <a th:if="${product.enabled == false}" th:href="@{'/products/' + ${product.id} + '/enable/true'}" title="Enable category">
+                                        <i class="icon-status-disabled fa-solid fa-circle-xmark"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/products/detail/' + ${product.id}}" title="Chi tiết" class="btn btn-sm btn-warning text-dark">Chi tiết</a>
+
+                                    <a th:href="@{'/products/edit/' + ${product.id}}" title="Edit">
+                                        <i class="action action-edit fa-solid fa-pen-to-square"></i>
+                                    </a>
+
+                                    <a th:href="@{'/products/delete/' + ${product.id}}" title="Delete" onclick="return confirm('Bạn chắc cắn muốn xóa sản phẩm!')">
+                                        <i class="action action-delete fa-solid fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-block" th:if="${!products.isEmpty()}">
+                    <div class="pagination-info">
+                        <p>Result: [[${startItem}]] -> [[${endItem}]] of total [[${totalItem}]] result</p>
+                    </div>
+                    <div class="pagination">
+                        <a th:href="@{'/products/page/' + ${currentPage - 1} + ${keyword != null ? '?keyword=' + keyword : ''} + ${categoryID != null ? '&category=' + categoryID : ''}}" th:class="${currentPage == 1 ? 'pagination-item-disable' : ''}">&laquo;</a>
+                        <a th:each="item : ${#numbers.sequence(1, totalPage)}"  th:href="@{'/products/page/' + ${item} + ${keyword != null ? '?keyword=' + keyword : ''} + ${categoryID != null ? '&category=' + categoryID : ''}}" th:class="${currentPage == item ? 'active' : ''}">[[${item}]]</a>
+                        <a th:href="@{'/products/page/' + ${currentPage + 1} + ${keyword != null ? '?keyword=' + keyword : ''} + ${categoryID != null ? '&category=' + categoryID : ''}}" th:class="${currentPage >= totalPage ? 'pagination-item-disable' : ''}">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

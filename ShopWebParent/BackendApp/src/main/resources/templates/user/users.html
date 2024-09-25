@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <head th:replace="frangment::page_head('Admin - Danh sách người dùng')"></head>
+<body>
+    <div class="container-fluid">
+        <form th:action="@{/logout}" method="POST" th:hidden="true" name="formLogout">
+            <input type="submit">
+        </form>
+        <div class="wrapper">
+
+            <div th:replace="navigation::sidebar"></div>
+
+            <div class="content">
+                <h3 class="title">Danh sách người dùng</h3>
+
+                <div class="list-action">
+                    <a th:href="@{/users/add}" class="action-link"><span class="icon"><i class="fa-solid fa-user-plus"></i></span>Thêm người dùng</a>
+                </div>
+
+                <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+                <div class="table_component" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Hình ảnh</th>
+                                <th>Email</th>
+                                <th>Tên</th>
+                                <th>Họ</th>
+                                <th>Phân quyền</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${listUsers}">
+                                <td>[[${user.id}]]</td>
+                                <td>
+                                    <img th:if="${user.photos == null}" th:src="@{/images/user-default-thumb.png}" alt="">
+                                    <img th:if="${user.photos != null}" th:src="@{${user.photoPath}}" alt="">
+                                </td>
+                                <td>[[${user.email}]]</td>
+                                <td>[[${user.firstName}]]</td>
+                                <td>[[${user.lastName}]]</td>
+                                <td>[[${user.roles}]]</td>
+                                <td>
+                                    <a th:if="${user.enabled == true}" th:href="@{'/users/' + ${user.id} + '/enable/false'}" title="Disable user">
+                                        <i class="icon-status-enabled fa-solid fa-circle-check"></i>
+                                    </a>
+
+                                    <a th:if="${user.enabled == false}" th:href="@{'/users/' + ${user.id} + '/enable/true'}" title="Enable user">
+                                        <i class="icon-status-disabled fa-solid fa-circle-xmark"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/users/edit/' + ${user.id}}" title="Edit">
+                                        <i class="action action-edit fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a th:href="@{'/users/delete/' + ${user.id}}" title="Delete" onclick="return confirm('Bạn chắc cắn muốn xóa người dùng!')">
+                                        <i class="action action-delete fa-solid fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-block">
+                    <div class="pagination-info">
+                        <p>Result: [[${startItem}]] -> [[${endItem}]] of total [[${totalItem}]] result</p>
+                    </div>
+                    <div class="pagination">
+                        <a th:href="@{'/users/page/' + ${currentPage - 1}}" th:class="${currentPage == 1 ? 'pagination-item-disable' : ''}">&laquo;</a>
+                        <a th:each="item : ${#numbers.sequence(1, totalPage)}"  th:href="@{'/users/page/' + ${item}}" th:class="${currentPage == item ? 'active' : ''}">[[${item}]]</a>
+                        <a th:href="@{'/users/page/' + ${currentPage + 1}}" th:class="${currentPage >= totalPage ? 'pagination-item-disable' : ''}">&raquo;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

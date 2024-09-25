@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="form-block" style="width: 40%; display: flex; justify-content: space-between; align-items: center; margin-top: 16px">
+        <label style="font-weight: bold; margin-bottom: 10px; display: inline-block">Chiều dài (cm):</label>
+        <input type="number" step="0.01" min="0" th:field="*{length}" style="outline: none; border: 1px solid #ccc; border-radius: 5px; width: 80%; display: inline-block; padding: 5px 10px;">
+    </div>
+
+    <div class="form-block" style="width: 40%; display: flex; justify-content: space-between; align-items: center; margin-top: 16px">
+        <label style="font-weight: bold; margin-bottom: 10px; display: inline-block">Chiều rộng (cm):</label>
+        <input type="number" step="0.01" min="0" th:field="*{width}" style="outline: none; border: 1px solid #ccc; border-radius: 5px; width: 80%; display: inline-block; padding: 5px 10px;">
+    </div>
+
+    <div class="form-block" style="width: 40%; display: flex; justify-content: space-between; align-items: center; margin-top: 16px">
+        <label style="font-weight: bold; margin-bottom: 10px; display: inline-block">Chiều cao (cm):</label>
+        <input type="number" step="0.01" min="0" th:field="*{height}" style="outline: none; border: 1px solid #ccc; border-radius: 5px; width: 80%; display: inline-block; padding: 5px 10px;">
+    </div>
+
+    <div class="form-block" style="width: 40%; display: flex; justify-content: space-between; align-items: center; margin-top: 16px">
+        <label style="font-weight: bold; margin-bottom: 10px; display: inline-block">Cân nặng (kg):</label>
+        <input type="number" step="0.01" min="0" th:field="*{weight}" style="outline: none; border: 1px solid #ccc; border-radius: 5px; width: 80%; display: inline-block; padding: 5px 10px;">
+    </div>
+</div>
+</body>
+</html>

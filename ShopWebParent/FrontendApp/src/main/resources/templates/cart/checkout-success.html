@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Đặt hàng thành công')"></head>
+<body>
+<div class="main">
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div style="width: 50%; margin: auto; transform: translateY(50%); text-align: center; padding: 22px;">
+        <div class="icon-success" style="width: 100%; display: flex; justify-content: center; margin-bottom: 16px;">
+            <img style="width: 50px; height: 50px; display: block" src="https://cdn3.iconfinder.com/data/icons/basicolor-arrows-checks/24/155_check_ok_sticker_success-512.png" alt="">
+        </div>
+        <h5 style="text-transform: uppercase; margin-bottom: 16px; font-size: 22px">Đặt hàng thành công</h5>
+        <p>Bạn có thể kiểm tra Email đặt hàng để xem thông tin chi tiết đơn hàng của bạn!</p>
+        <div class="action">
+            <a th:href="@{/}" style="display: inline-block; padding: 6px 16px; margin-top: 16px; border-radius: 25px; background-color: #0EB092; color: #fff; text-align: center; text-decoration: none">Quay về trang chủ</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

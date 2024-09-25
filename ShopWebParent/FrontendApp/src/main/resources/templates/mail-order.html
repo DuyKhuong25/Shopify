@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div class="table_component" role="region" tabindex="0" style="overflow: auto; width: 100%;">
+        <table style="border: 1px solid #dededf; height: 100%; width: 100%; table-layout: fixed; border-collapse: collapse; border-spacing: 1px; text-align: center;">
+            <thead>
+            <tr>
+                <th style="border: 1px solid #dededf; background-color: #eceff1; color: #000000; padding: 5px;">Tên sản phẩm</th>
+                <th style="border: 1px solid #dededf; background-color: #eceff1; color: #000000; padding: 5px;">Số lượng mua</th>
+                <th style="border: 1px solid #dededf; background-color: #eceff1; color: #000000; padding: 5px;">Tạm tính</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem : ${listCartItem}">
+                <td th:text="${cartItem.product.name}" style="border: 1px solid #dededf; background-color: #ffffff; color: #000000; padding: 5px;"></td>
+                <td th:text="${cartItem.quantity}" style="border: 1px solid #dededf; background-color: #ffffff; color: #000000; padding: 5px;"></td>
+                <td th:text="${#numbers.formatInteger(cartItem.subTotalCartItem, 3, 'POINT')} + ' VNĐ'" style="border: 1px solid #dededf; background-color: #ffffff; color: #000000; padding: 5px;"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

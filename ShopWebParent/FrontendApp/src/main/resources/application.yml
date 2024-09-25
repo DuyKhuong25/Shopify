@@ -1,0 +1,47 @@
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 7d
+#    context-path: /shopify
+spring:
+  application:
+    name: FrontendApp
+  datasource:
+    password: ecommerce
+    url: jdbc:mysql://localhost:3306/ecommerce_db
+    username: ecommerce
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 2
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+  main:
+    banner-mode: 'off'
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+          facebook:
+            client-id: ${FACEBOOK_CLIENT_ID}
+            client-secret: ${FACEBOOK_CLIENT_SECRET}
+            scope:
+              - email
+              - public_profile

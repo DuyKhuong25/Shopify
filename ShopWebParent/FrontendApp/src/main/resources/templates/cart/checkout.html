@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Thanh toán')"></head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="checkout-info-block" th:if="${!listCart.isEmpty()}">
+        <h5>Thông tin địa chỉ:</h5>
+        <div class="address-info">
+            <span class="icon-ship"><img src="https://cdn-icons-png.flaticon.com/512/5952/5952766.png" alt=""></span>
+            <th:block th:if="${addressChoose != null}">
+                <span class="address-ship" th:text="${addressChoose.infoCustomerAddress}"></span>
+                <a th:href="@{/account/address(redirect=checkout)}" class="change-address">Đổi địa chỉ</a>
+            </th:block>
+            <th:block th:if="${addressChoose == null}">
+                <span class="address-ship">Bạn chưa có địa chỉ nhận hàng!</span>
+                <a th:href="@{/account/address/add}" class="change-address">Thêm địa chỉ</a>
+            </th:block>
+        </div>
+
+        <h5>Thông tin đơn đặt hàng:</h5>
+        <div class="products-info list-cart-item">
+            <div class="cart-item title-cart">
+                <div class="thumb title-cart-thumb" style="align-items: center">Hình ảnh</div>
+
+                <div class="name-product title-cart-product">Thông tin sản phẩm</div>
+
+                <div class="change-quantity title-cart-quantity">Số lượng</div>
+
+                <div class="sub-total title-cart-subtotal">Tổng tiền</div>
+            </div>
+
+            <div class="cart-item" th:each="cartItem : ${listCart}" th:id="'item-cart-' + ${cartItem.id}">
+                <div class="thumb">
+                    <img th:src="@{${cartItem.product.mainImagePath}}" alt="">
+                </div>
+
+                <div class="name-product">
+                    <a th:href="@{'/chi-tiet-san-pham/' + ${cartItem.product.alias}}"
+                       th:text="${cartItem.product.name}" target="_blank"></a>
+                </div>
+
+                <div class="change-quantity">
+                    <input class="input-quantity quantity-cart-item" type="text" th:value="${cartItem.quantity}">
+                </div>
+
+                <div class="sub-total">
+                    <p class="sub-total-price" th:text="${#numbers.formatInteger((cartItem.getSubTotalCartItem()), 3, 'POINT')}"></p>
+                </div>
+            </div>
+
+            <div class="cart-item cart-checkout cart-checkout-info">
+                <span class="text-total">Tổng thanh toán:</span>
+                <span class="total-price" th:text="${#numbers.formatInteger(checkoutInfo.getPaymentTotal(), 3, 'POINT')}"></span>
+            </div>
+        </div>
+
+        <h5>Hình thức thanh toán</h5>
+        <div class="pay-action">
+            <div class="payment-option active" id="cash-option">
+                <form th:action="@{/checkout/save}" method="POST">
+                    <div class="check-type">
+                        <input checked type="radio" id="cash-on-delivery" name="paymentMethod" value="COD" onclick="toggleOptions('cash-option')">
+                        <label for="cash-on-delivery">Thanh toán khi nhận hàng</label>
+                    </div>
+                    <div class="pay-actions">
+                        <button th:disabled="${addressChoose == null}" type="submit">Đặt hàng</button>
+                    </div>
+                </form>
+            </div>
+<!--            <div class="payment-option" id="bank-option">-->
+<!--                <div class="check-type">-->
+<!--                    <input type="radio" id="bank-transfer" name="paymentMethod" value="bank" onclick="toggleOptions('bank-option')">-->
+<!--                    <label for="bank-transfer">Thanh toán ngân hàng</label>-->
+<!--                </div>-->
+<!--                <div class="pay-actions">-->
+<!--                    <button type="button">Thanh toán với Paypal</button>-->
+<!--                    <button type="button">Thanh toán với Visa Card</button>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+</main>
+<script th:src="@{/js/cart.js}"></script>
+<script>
+    function toggleOptions(selectedOptionId) {
+        const options = document.querySelectorAll('.payment-option');
+        options.forEach(option => {
+            if (option.id === selectedOptionId) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    }
+</script>
+</body>
+</html>

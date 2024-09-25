@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="result(productResult)" class="view-product-list">
+    <div th:if="${!productResult.isEmpty()}" class="view-item-product" th:each="product : ${productResult}">
+        <img th:src="@{${product.mainImagePath}}" class="thumb-product">
+        <a th:href="@{'~/chi-tiet-san-pham/' + ${product.alias}}" class="name-product" th:text="${product.name}"></a>
+        <div class="price-product">
+            <span class="value" th:text="${#numbers.formatInteger(product.discountPrice, 3, 'POINT')}"></span>
+            <sup class="currency">VNĐ</sup>
+        </div>
+    </div>
+    <div th:if="${productResult.isEmpty()}">
+        <img style="width: 100%; height: 320px; object-fit: contain" src="https://static.vecteezy.com/system/resources/previews/010/856/652/non_2x/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg" alt="">
+    </div>
+</div>
+</body>
+</html>

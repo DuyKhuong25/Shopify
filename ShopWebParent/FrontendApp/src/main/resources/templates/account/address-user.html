@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head::page_head('Thông tin tài khoản')"></head>
+</head>
+<body>
+<main>
+    <header th:replace="header::header(rootCategory=${rootCategory})"></header>
+    <div class="account-information">
+        <div class="side-block">
+            <a th:href="@{/account}">Thông tin chung</a>
+            <a th:href="@{/account/address}">Địa chỉ</a>
+        </div>
+        <div class="information-block">
+            <div class="top-block">
+                <h5 class="title">Danh sách địa chỉ</h5>
+                <a th:href="@{/account/address/add}" class="add-address"><i class="fa-solid fa-circle-plus icon-add"></i>Thêm địa chỉ</a>
+            </div>
+            <div class="list-address" th:if="${!listAddress.isEmpty()}">
+                <div class="address-item" th:each="address : ${listAddress}">
+                    <div class="header-item">
+                        <span class="text" th:text="${address.isAddressDefault() == false ? 'Địa chỉ' : 'Đang chọn'}"></span>
+                        <div class="action">
+                            <a th:href="'address/edit/' + ${address.id}"><i class="fa-solid fa-pen-to-square icon-edit"></i></a>
+                            <a th:if="${address.isAddressDefault() == false}" th:href="'address/delete/' + ${address.id}"><i class="fa-solid fa-trash-can icon-delete"></i></a>
+                        </div>
+                    </div>
+                    <div class="body-item">
+                        <div class="info-address-block">
+                            <span class="info-item detail" th:text="${address.infoCustomerAddress}"></span>
+                        </div>
+                        <div class="change-status-block">
+                            <th:block th:if="${address.isAddressDefault() == false}">
+                                <a th:if="${param.redirect}"
+                                   th:with="url='/account/address/default/' + ${address.id} + '?redirect=' + ${param.redirect}"
+                                   th:href="@{${url}}"
+                                   class="set-default-action">Đặt làm mặc định</a>
+
+                                <a th:unless="${param.redirect}"
+                                   th:with="url='/account/address/default/' + ${address.id}"
+                                   th:href="@{${url}}"
+                                   class="set-default-action">Đặt làm mặc định</a>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

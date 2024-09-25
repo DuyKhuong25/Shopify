@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<headb th:replace="frangment::page_head('Quản lý Brand')">
+</headb>
+<body>
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div th:replace="navigation::sidebar"></div>
+            <div class="content">
+                <h3 class="title">Danh sách Brand</h3>
+
+                <div class="list-action">
+                    <a th:href="@{/brands/add}" class="action-link"><span class="icon"><i class="fa-solid fa-user-plus"></i></span>Thêm Brand</a>
+
+                    <div class="search-container">
+                        <form th:action="@{/brands/page/1}" class="search-form">
+                            <input type="search" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm..." th:autocomplete="off" class="search-input">
+                            <button type="submit" class="search-button">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            </button>
+                        </form>
+
+                        <button data-url="/brands" class="clear-search-input">Xóa</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success text-center" th:if="${message != null}">[[${message}]]</div>
+
+                <div class="table_component" tabindex="0">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Logo</th>
+                            <th>Tên Brand</th>
+                            <th>Danh mục</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="brand : ${brands}">
+                            <td>[[${brand.id}]]</td>
+                            <td>
+                                <img th:if="${brand.logo == null}" th:src="@{/images/empty-thumb.png}" alt="">
+                                <img th:if="${brand.logo != null}" th:src="@{${brand.brandLogo}}" alt="">
+                            </td>
+                            <td style="text-align: left;">[[${brand.name}]]</td>
+                            <td>
+                                <th:block th:each="category : ${brand.categories}">
+                                    <span class="badge bg-warning text-dark">[[${category.name}]]</span>
+                                </th:block>
+                            </td>
+                            <td>
+                                <a th:href="@{'/brands/edit/' + ${brand.id}}" title="Edit">
+                                    <i class="action action-edit fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a th:href="@{'/brands/delete/' + ${brand.id}}" title="Delete" onclick="return confirm('Bạn chắc cắn muốn xóa brand!')">
+                                    <i class="action action-delete fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination-block">
+                    <div class="pagination-info">
+                        <p>Result: [[${startItem}]] -> [[${endItem}]] of total [[${totalItem}]] result</p>
+                    </div>
+                    <div class="pagination">
+                        <a th:href="@{'/brands/page/' + ${currentPage - 1}}" th:class="${currentPage == 1 ? 'pagination-item-disable' : ''}">&laquo;</a>
+                        <a th:each="item : ${#numbers.sequence(1, totalPage)}"  th:href="@{'/brands/page/' + ${item} + ${keyword != null ? '?keyword=' + keyword : '' }}" th:class="${currentPage == item ? 'active' : ''}">[[${item}]]</a>
+                        <a th:href="@{'/brands/page/' + ${currentPage + 1}}" th:class="${currentPage >= totalPage ? 'pagination-item-disable' : ''}">&raquo;</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

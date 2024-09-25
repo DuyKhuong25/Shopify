@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="productList(orderDetailList)" class="product-info-block" th:each="orderDetail : ${orderDetailList}">
+    <div class="thumb-product">
+        <img th:src="@{${orderDetail.product.mainImagePath}}" alt="">
+    </div>
+    <div class="product-detail">
+        <div class="row">
+            <span class="text">Tên sản phẩm:</span>
+            <span class="value" th:text="${orderDetail.product.name}"></span>
+        </div>
+        <div class="row">
+            <span class="text">Giá sản phẩm:</span>
+            <p class="value">
+                <span th:text="${#numbers.formatInteger(orderDetail.unitPrice, 3, 'POINT')}"></span><sup> VNĐ</sup>
+            </p>
+        </div>
+        <div class="row">
+            <span class="text">Tổng số lượng mua:</span>
+            <div class="change-quantity" style="flex-basis: 80%; padding: 0;">
+                <button type="button" class="minus minus_change-order-item" th:data-order="${orderDetail.id}">
+                    -
+                </button>
+                <input th:class="${'input-quantity quantity_order-item'}"
+                       th:id="'quantity-order-' + ${orderDetail.id}" type="text"
+                       th:value="${orderDetail.quantity}">
+                <button type="button" class="plus plus_change-order-item" th:data-order="${orderDetail.id}">
+                    +
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <span class="text">Tổng tiền sản phẩm:</span>
+            <p class="value">
+                <span th:class="${'sub-total-' + orderDetail.id}" style="color: darkgoldenrod" th:text="${#numbers.formatInteger(orderDetail.subtotal, 3, 'POINT')}"></span>
+                <sup> VNĐ</sup>
+            </p>
+        </div>
+    </div>
+    <div class="product-action">
+        <a type="button" th:href="@{${'~/order/detail/delete/' + orderDetail.order.id + '/' + orderDetail.id}}" style="color: #e54e4e"><i class="action action-delete fa-solid fa-trash-can"></i></a>
+    </div>
+</div>
+<script th:src="@{~/js/update-order.js}"></script>
+</body>
+</html>

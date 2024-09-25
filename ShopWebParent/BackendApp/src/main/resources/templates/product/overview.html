@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div class="form-group form-group_product">
+            <div class="form-group-col">
+                <label>Tên sản phẩm:</label>
+                <input name="name" type="text" th:field="*{name}" class="form-input" min="10" max="255" placeholder="Tên sản phẩm..." required>
+            </div>
+
+            <div class="form-group-col">
+                <label>Tên Slug:</label>
+                <input name="alias" type="text" th:field="*{alias}" class="form-input" min="10" max="255" placeholder="Slug tự động tạo theo tên sản phẩm nếu bỏ trống">
+            </div>
+        </div>
+
+        <div class="form-group form-group_product">
+            <div class="form-group-col">
+                <label >Tên thương hiệu:</label>
+                <select name="brand" th:field="*{brand}" class="drop-brand" required>
+                    <option value="">Chọn thương hiệu</option>
+                    <th:block>
+                        <option th:each="brand : ${brands}" th:value="${brand.id}">[[${brand.name}]]</option>
+                    </th:block>
+                </select>
+            </div>
+
+            <div class="form-group-col">
+                <label>Tên danhn mục:</label>
+                <th:block th:if="${product.category != null}">
+                    <select name="category" th:field="*{category}" class="drop-category" required>
+                        <option th:each="category : ${product.brand.categories}" th:value="${category.id}">[[${category.name}]]</option>
+                    </select>
+                </th:block>
+
+                <th:block th:if="${product.category == null}">
+                    <select name="category" th:field="*{category}" class="drop-category" required></select>
+                </th:block>
+            </div>
+        </div>
+
+        <div>
+            <label>Trạng thái:</label>
+            <label class="switch">
+                <input type="checkbox" th:field="*{enabled}">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div>
+            <label>Còn hàng:</label>
+            <label class="switch">
+                <input type="checkbox" th:field="*{inStock}">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="form-group form-group_product mt-3      ">
+            <div class="form-group-col form-group-col_price">
+                <label>Giá nhập:</label>
+                <input type="number" name="cost" th:field="*{cost}" placeholder="Giá nhập" min="0">
+            </div>
+
+            <div class="form-group-col form-group-col_price">
+                <label>Giá bán:</label>
+                <input type="number" name="cost" th:field="*{price}" placeholder="Giá bán" min="0" required>
+            </div>
+
+            <div class="form-group-col form-group-col_price">
+                <label>Giảm giá:</label>
+                <input type="number" name="cost" th:field="*{discountPercent}" min="0" placeholder="% giảm giá">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+.wrapper-order,
+.order-detail-content,
+.form-rating{
+    width: 65%;
+    margin: 16px auto;
+    padding: 16px 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 800px;
+}
+
+p{
+    margin-bottom: 0 !important;
+}
+
+.order-list .order-info-item{
+    margin-bottom: 16px;
+    padding: 0 16px 16px 16px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.order-list .order-info-item:last-child{
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 0;
+}
+
+.order-list .order-info-item .main-info{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid #e4f5ce;
+    border-left: none;
+    border-right: none;
+}
+
+.order-list .order-info-item .main-info .left-block{
+    flex-basis: 80%;
+    border-right: 1px solid #e4f5ce;
+    padding-top: 16px;
+}
+
+.order-info-item .main-info .left-block .info-address .text{
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.order-info-item .main-info .left-block .info-address .value{
+    font-style: italic;
+    display: inline-block;
+    padding-left: 16px;
+    font-size: 14px;
+}
+
+.order-info-item .main-info .left-block .order-product-list{
+    margin: 16px 0 !important;
+}
+
+.order-info-item .main-info .left-block .order-product-list .info-product-order{
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.order-info-item .main-info .left-block .order-product-list .info-product-order .name-product{
+    flex-basis: 70%;
+}
+
+.order-info-item .main-info .left-block .order-product-list .info-product-order .quantity-buy{
+    flex-basis: 10%;
+}
+.order-info-item .main-info .left-block .order-product-list .info-product-order .value-price{
+    flex-basis: 20%;
+    text-align: right;
+}
+
+
+.order-list .order-info-item .main-info .right-block{
+    flex-basis: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.product-order-detail .total-price,
+.order-list .order-info-item .main-info .right-block .total-price {
+    border-right: 1px solid #e4f5ce;
+    display: inline-block;
+    margin-right: 16px;
+    padding-right: 16px;
+    color: #f14646;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.order-list .order-info-item .sub-info{
+    display: flex;
+    justify-content: end;
+    margin-top: 5px;
+}
+
+.order-list .order-info-item .sub-info a{
+    display: inline-block;
+    text-decoration: none;
+    background-color: #b2e37b;
+    color: #fff;
+    padding: 5px 16px;
+}
+.order-detail-content{
+    padding-top: 0;
+}
+
+.ordered-products {
+    display: flex;
+    flex-direction: column;
+}
+
+.ordered-products .status-order-info{
+    background-color: #fbfaf8;
+    padding: 8px 16px;
+}
+
+.ordered-products .status-order-info h5{
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.ordered-products .status-order-info img{
+    display: inline-block;
+    margin-right: 16px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.ordered-products .status-order-info .status-order{
+    display: inline-block;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.ordered-products .status-order-info #delivery-order{
+    background-color: #efc529;
+}
+
+.ordered-products .status-order-info #success-order{
+    background-color: #3e8c57;
+}
+
+.product-order-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #e4f5ce;
+    padding: 16px;
+}
+
+.product-order-image {
+    flex-basis: 15%;
+    height: 150px;
+}
+
+.product-order-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.product-order-detail {
+    flex-basis: 85%;
+}
+
+.product-order-detail .quantity-buy,
+.product-order-detail .price-product{
+    font-weight: 500;
+    color: #6c6c6c;
+    margin: 12px 0 !important;
+}
+
+.product-order-detail .total-price{
+    border-right: none;
+}
+
+.product-order-detail .rating-action{
+    display: flex;
+    justify-content: end;
+}
+
+.product-order-detail .rating-action #rating,
+.product-order-detail .rating-action #rated{
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    padding: 8px 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.product-order-detail .rating-action #rating{
+    background-color: #e54e4e;
+}
+
+.product-order-detail .rating-action #rated{
+    background-color: #c29803;
+}
+
+.product-order-detail .rating-action .status-no-rating{
+    font-size: 12px;
+    color: #e54e4e;
+    font-style: italic;
+}
+
+/*Rating start form*/
+
+.rate {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 30px;
+    font-weight: 300;
+    color: #FFD600;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+
+.form-rating{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-rating form{
+    width: 50%;
+}
+
+.form-rating .product-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-rating .product-info h5{
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+}
+
+.form-rating .product-info .thumb{
+    width: 200px;
+    margin-bottom: 16px;
+}
+
+.form-rating .product-info .thumb img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.form-rating .container-rating{
+    margin-top: 0 !important;
+    height: 50px;
+}
+
+.form-rating .comment-rating textarea{
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 450;
+    outline: none;
+    border: 1px solid #ccc;
+    display: block;
+    padding: 16px;
+}
+
+.form-rating .submit-rating button{
+    display: block;
+    outline: none;
+    border: none;
+    margin-top: 16px;
+    padding: 8px 16px;
+    color: #fff;
+    background-color: #0EB092;
+    width: 100%;
+}

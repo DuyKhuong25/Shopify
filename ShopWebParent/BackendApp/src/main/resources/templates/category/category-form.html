@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="frangment::page_head('Thêm danh mục')"></head>
+<body>
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div th:replace="navigation::sidebar"></div>
+            <div class="content">
+                <h3 class="title">[[${title}]]</h3>
+
+                <div class="container-form">
+                    <form th:action="@{/categories/save}" th:object="${category}" method="POST" id="form-category" enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:field="*{id}">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" th:field="*{name}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alias">Alias</label>
+                            <input type="text" id="alias" name="alias" th:field="*{alias}" placeholder="Slug danh mục động tạo theo tên nếu bỏ trống">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Trạng thái:</label>
+                            <label class="switch">
+                                <input type="checkbox" th:field="*{enabled}">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Danh mục</label>
+                            <select th:field="*{parent}" class="select-category">
+                                <option value="0">Chọn danh mục</option>
+                                <th:block th:each="item : ${categories}">
+                                    <option th:value="${item.id}">[[${item.name}]]</option>
+                                </th:block>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hình ảnh:</label>
+                            <div class="upload-container">
+                                <input type="hidden" name="image" th:field="*{image}">
+                                <input type="file" name="imageUpload" id="imageUpload" class="input-upload" accept="image/png, image/jpg, image/jpeg">
+                                <label for="imageUpload" class="upload-label">
+                                    <span class="plus-icon">+</span>
+                                </label>
+
+                                <div class="error-file"></div>
+
+                                <div class="image-preview" id="imagePreview">
+                                    <img id="thumbnail" th:src="@{${category.image == null ? '/images/empty-thumb.png' : category.categoryImage}}" class="image-preview__image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group button-group">
+                            <button type="submit" th:if="${status == 'add'}">Thêm mới</button>
+                            <button type="submit" th:if="${status == 'edit'}">Cập nhật</button>
+                            <button type="button" class="btn-cancel category-cancel">Quay lại</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

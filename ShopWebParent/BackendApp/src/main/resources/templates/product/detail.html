@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div id="input-container" class="detail-product detail-form-block">
+
+            <th:block th:if="${product.details != null}">
+                <div class="input-row" th:each="infoDetail : ${product.details}" th:id="'row-' + ${infoDetail.id}">
+                    <input type="hidden" name="detailID" th:value="${infoDetail.id}">
+                    <div class="input-group">
+                        <label for="detailName">Tên thuộc tính:</label>
+                        <input type="text" th:id="detailName" th:value="${infoDetail.name}" name="detailName" placeholder="Tên thuộc tính">
+                    </div>
+                    <div class="input-group">
+                        <label for="detailValue">Giá trị:</label>
+                        <input type="text" th:id="detailValue" th:value="${infoDetail.value}" name="detailValue" placeholder="Giá trị thuộc tính">
+                    </div>
+                    <button type="button" class="remove-row-btn remove-detail" th:data-id="${infoDetail.id}"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+            </th:block>
+
+            <div class="input-row">
+                <input type="hidden" name="detailID" value="0">
+                <div class="input-group">
+                    <label for="detailName">Tên thuộc tính:</label>
+                    <input type="text" id="detailName" name="detailName" placeholder="Tên thuộc tính">
+                </div>
+                <div class="input-group">
+                    <label for="detailValue">Giá trị:</label>
+                    <input type="text" id="detailValue" name="detailValue" placeholder="Giá trị thuộc tính">
+                </div>
+            </div>
+
+        </div>
+
+        <button type="button" class="add-row-btn">Thêm thuộc tính</button>
+
+    </div>
+</body>
+</html>
